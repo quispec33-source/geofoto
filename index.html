@@ -978,8 +978,9 @@
       mapa = L.map('mapa');
       // Mapas que funcionan también al abrir el archivo directamente (sin servidor).
       // Los servidores de OpenStreetMap.org bloquean esas peticiones (error 403), por eso se usan CARTO y Esri.
-      const calles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        maxZoom: 20, subdomains: 'abcd', attribution: '&copy; OpenStreetMap &copy; CARTO' });
+      const enWeb = location.protocol.startsWith('http');
+      const calles = L.tileLayer(enWeb ? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png' : 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19, attribution: enWeb ? '&copy; OpenStreetMap' : 'Mapa &copy; Esri' });
       const callesEsri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
         maxZoom: 19, attribution: 'Mapa &copy; Esri' });
       const sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
